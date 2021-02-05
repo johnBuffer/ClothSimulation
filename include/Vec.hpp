@@ -8,14 +8,14 @@
 class Vec
 {
 public:
-    Vec(double x, double y);
+    Vec(float x, float y);
     Vec(Point *p1, Point *p2);
 
-    double x, y, norme;
+    float x, y, norme;
 
     void normalize();
     Vec getNormalVec();
-    double dot(Vec v);
+    float dot(Vec v);
 };
 
 #endif // VECTEUR_H_INCLUDED

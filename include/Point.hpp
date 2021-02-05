@@ -8,18 +8,18 @@ class Point
 {
 public:
     Point();
-    Point(double x, double y, double m = 1);
+    Point(float x, float y, float m = 1);
 
     void updateV();
-    void updatePos(double dt);
+    void updatePos(float dt);
 
     bool fixed;
-    double x, y;
-    double vx, vy, ax, ay, mass;
+    float x, y;
+    float vx, vy, ax, ay, mass;
     sf::Color color;
 
 private:
-    double last_x, last_y;
+    float last_x, last_y;
 };
 
 #endif // POINT_H_INCLUDED

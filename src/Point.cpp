@@ -20,7 +20,7 @@ Point::Point()
     fixed = false;
 }
 
-Point::Point(double x, double y, double m)
+Point::Point(float x, float y, float m)
 {
     this->x = x;
     this->y = y;
@@ -50,14 +50,14 @@ void Point::updateV()
     }
 }
 
-void Point::updatePos(double dt)
+void Point::updatePos(float dt)
 {
     if (!fixed)
     {
         ay += 20000;
         ax += 5000;
 
-        double y_soil = 900;
+        float y_soil = 900;
 
         if (y > y_soil)
         {
@@ -80,11 +80,11 @@ void Point::updatePos(double dt)
             x = 0;
         }
 
-        ax += -vx*0.05/dt/mass;
-        ay += -vy*0.05/dt/mass;
+        ax += -(vx*0.05f/dt)/mass;
+        ay += -(vy*0.05f/dt)/mass;
 
-        double new_x = 2*x-last_x+ax*dt*dt;
-        double new_y = 2*y-last_y+ay*dt*dt;
+        float new_x = 2.0f*x-last_x+ax*dt*dt;
+        float new_y = 2.0f*y-last_y+ay*dt*dt;
 
         last_x = x;
         last_y = y;

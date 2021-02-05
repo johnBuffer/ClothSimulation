@@ -6,9 +6,9 @@ World::World()
     m_clock.restart();
 }
 
-void World::update(double x, double y)
+void World::update(float x, float y)
 {
-    double dt = 0.0005;
+    float dt = 0.0005f;
     m_clock.restart();
 
     /*for (std::vector<Point*>::iterator it = m_points.begin() ; it != m_points.end(); ++it)
@@ -33,9 +33,9 @@ void World::update(double x, double y)
 void World::render(sf::RenderWindow &window)
 {
     //std::cout << "ok" << std::endl;
-    int n = m_links.size();
+    uint32_t n = static_cast<uint32_t>(m_links.size());
     sf::VertexArray links(sf::Lines, 2*n);
-    for (int i(0); i<n; ++i)
+    for (uint32_t i(0); i<n; ++i)
     {
         links[2*i].position = m_links[i]->getPos1();
         links[2*i].color = m_links[i]->getCol1();
@@ -46,26 +46,26 @@ void World::render(sf::RenderWindow &window)
     window.draw(links);
 }
 
-void World::addCloth(double x, double y, double l, double h)
+void World::addCloth(float x, float y, float l, float h)
 {
-    double side = 10;
+    float side = 10.0f;
 
     for (int i(0); i<l; ++i)
     {
         for (int j(0); j<h; ++j)
         {
-            Point* p = new Point(x+side*i, y+side*j, side/10.0);
+            Point* p = new Point(x+side*i, y+side*j, side * 0.1f);
             this->addPoint(p);
 
             if (i > 0)
             {
-                Point* px = m_points[(i-1)*h+j];
+                Point* px = m_points[static_cast<uint64_t>((i-1)*h)+j];
                 this->addLink(new Link(p, px));
             }
 
             if (j > 0)
             {
-                Point* py = m_points[i*h+j-1];
+                Point* py = m_points[static_cast<uint64_t>(i*h)+j-1];
                 this->addLink(new Link(p, py));
             }
             else

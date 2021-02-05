@@ -1,7 +1,7 @@
 #include "Link.hpp"
 
 
-Link::Link(Point* p1, Point* p2, double length)
+Link::Link(Point* p1, Point* p2, float length)
 {
     m_p1 = p1;
     m_p2 = p2;
@@ -13,19 +13,19 @@ Link::Link(Point* p1, Point* p2, double length)
     m_broken = false;
 }
 
-void Link::update(double dt, double x, double y)
+void Link::update(float dt, float x, float y)
 {
-    double vx = m_p2->x - m_p1->x;
-    double vy = m_p2->y - m_p1->y;
+    float vx = m_p2->x - m_p1->x;
+    float vy = m_p2->y - m_p1->y;
 
-    double dist = sqrt(vx*vx+vy*vy)+0.0001;
+    float dist = sqrt(vx*vx+vy*vy)+0.0001f;
 
-    double f = (dist-m_length)/dist*0.5;
+    float f = (dist-m_length)/dist*0.5f;
 
     m_p2->color = sf::Color::White;
 
-    double coeff_mass_1 = m_p2->mass/(m_p1->mass+m_p2->mass);
-    double coeff_mass_2 = m_p1->mass/(m_p1->mass+m_p2->mass);
+    float coeff_mass_1 = m_p2->mass/(m_p1->mass+m_p2->mass);
+    float coeff_mass_2 = m_p1->mass/(m_p1->mass+m_p2->mass);
 
     if (dist > m_length+3)
         m_broken = true;
@@ -44,11 +44,11 @@ void Link::update(double dt, double x, double y)
 
     Vec v_mouse = Vec(m_p1->x-x, m_p1->y-y);
     v_mouse.normalize();
-    double dist_mouse = v_mouse.norme;
+    float dist_mouse = v_mouse.norme;
 
     if (dist_mouse < 7)
     {
-        /*double f_mouse = 5000;
+        /*float f_mouse = 5000;
         m_p1->ax -= f_mouse*v_mouse.x;
         m_p1->ay -= f_mouse*v_mouse.y;*/
         m_broken = true;

@@ -9,8 +9,8 @@
 class Link
 {
 public:
-    Link(Point* p1, Point* p2, double length = 0);
-    void update(double dt, double x, double y);
+    Link(Point* p1, Point* p2, float length = 0);
+    void update(float dt, float x, float y);
 
     sf::Vector2f getPos1() {return sf::Vector2f(m_p1->x, m_p1->y);};
     sf::Vector2f getPos2() {return sf::Vector2f(m_p2->x, m_p2->y);};
@@ -21,7 +21,7 @@ public:
     bool isBroken() {return m_broken;};
 
 private:
-    double m_length;
+    float m_length;
     Point *m_p1, *m_p2;
     bool m_broken;
 };

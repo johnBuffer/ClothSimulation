@@ -2,7 +2,7 @@
 #include <cmath>
 
 
-Vec::Vec(double x, double y)
+Vec::Vec(float x, float y)
 {
     this->x = x;
     this->y = y;
@@ -34,7 +34,7 @@ Vec Vec::getNormalVec()
     return Vec(-y, x);
 }
 
-double Vec::dot(Vec v)
+float Vec::dot(Vec v)
 {
     return x*v.x+y*v.y;
 }

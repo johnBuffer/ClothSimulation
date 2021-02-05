@@ -4,7 +4,6 @@
 #include <vector>
 #include "Link.hpp"
 
-#include <iostream>
 
 class World
 {
@@ -14,9 +13,9 @@ public:
     void addPoint(Point* point) {m_points.push_back(point);};
     void addLink(Link* link) {m_links.push_back(link);};
 
-    void addCloth(double x, double y, double l, double h);
+    void addCloth(float x, float y, float l, float h);
 
-    void update(double x, double y);
+    void update(float x, float y);
     void render(sf::RenderWindow &window);
 
 private:
