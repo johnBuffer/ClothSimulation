@@ -51,7 +51,9 @@ struct LinkConstraint
     ParticleRef particle_1;
     ParticleRef particle_2;
     float distance = 1.0f;
-    float strength = 0.9f;
+    float strength = 1.0f;
+    float max_elongation_ratio = 1.5f;
+    bool broken = false;
     uint32_t id = 0;
 
     LinkConstraint() = default;
@@ -63,9 +65,10 @@ struct LinkConstraint
         distance = MathVec2::length(p_1->position - p_2->position);
     }
 
+    [[nodiscard]]
     bool isValid() const
     {
-        return particle_2 && particle_1;
+        return particle_2 && particle_1 && !broken;
     }
 
     void solve()
@@ -76,6 +79,7 @@ struct LinkConstraint
         const sf::Vector2f v = p_1.position - p_2.position;
         const float dist = MathVec2::length(v);
         if (dist > distance) {
+            broken = dist > distance * max_elongation_ratio;
             const sf::Vector2f n = v / dist;
             const float c = distance - dist;
             const sf::Vector2f p = -(c * strength) / (p_1.mass + p_2.mass) * n;
@@ -126,7 +130,7 @@ struct PhysicSolver
 
     void applyAirFriction()
     {
-        const float friction_coef = 0.2f;
+        const float friction_coef = 0.5f;
         for (Particle& p : objects) {
             p.forces -= p.velocity * friction_coef;
         }
@@ -173,9 +177,17 @@ struct PhysicSolver
         return particle_id;
     }
 
-    void addLink(civ::ID particle_1, civ::ID particle_2)
+    void addLink(civ::ID particle_1, civ::ID particle_2, float max_elongation_ratio = 1.5f)
     {
         const civ::ID link_id = constraints.emplace_back(objects.getRef(particle_1), objects.getRef(particle_2));
         constraints[link_id].id = link_id;
+        constraints[link_id].max_elongation_ratio = max_elongation_ratio;
+    }
+
+    void map(std::function<void(Particle&)> callback)
+    {
+        for (Particle& p : objects) {
+            callback(p);
+        }
     }
 };
