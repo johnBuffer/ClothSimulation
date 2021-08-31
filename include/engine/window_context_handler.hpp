@@ -11,6 +11,7 @@ class WindowContextHandler;
 class RenderContext
 {
 public:
+    explicit
     RenderContext(sf::RenderWindow& window)
         : m_window(window)
         , m_viewport_handler(toVector2f(window.getSize()))
@@ -86,6 +87,12 @@ public:
     {
         m_window.setFramerateLimit(60);
         m_render_context.registerCallbacks(m_event_manager);
+    }
+
+    [[nodiscard]]
+    sf::Vector2u getWindowSize() const
+    {
+        return m_window.getSize();
     }
     
     void processEvents()
