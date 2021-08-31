@@ -39,7 +39,7 @@ int main()
     const float start_x = (window_width - (cloth_width - 1) * links_length) * 0.5f;
     // Initialize the cloth
     for (uint32_t y(0); y < cloth_height; ++y) {
-        const float max_elongation = 1.5f * (2.0f - y / float(cloth_height));
+        const float max_elongation = 1.2f * (2.0f - y / float(cloth_height));
         for (uint32_t x(0); x < cloth_width; ++x) {
             const uint32_t id = solver.addParticle(
                 sf::Vector2f(start_x + x * links_length, y * links_length)
@@ -90,14 +90,10 @@ int main()
 
         if (erasing) {
             // Delete all nodes that are in the range of the mouse
-            std::list<uint32_t> to_remove;
             for (Particle& p : solver.objects) {
                 if (isInRadius(p, mouse_position, 20.0f)) {
-                    to_remove.push_back(p.id);
+                    solver.objects.erase(p.id);
                 }
-            }
-            for (uint32_t id : to_remove) {
-                solver.objects.erase(id);
             }
         }
         // Update physics

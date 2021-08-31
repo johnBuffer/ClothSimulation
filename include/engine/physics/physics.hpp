@@ -159,14 +159,10 @@ struct PhysicSolver
 
     void removeLinks()
     {
-        std::list<uint32_t> to_remove;
         for (LinkConstraint& l : constraints) {
             if (!l.isValid()) {
-                to_remove.push_back(l.id);
+                constraints.erase(l.id);
             }
-        }
-        for (uint32_t id : to_remove) {
-            constraints.erase(id);
         }
     }
 
