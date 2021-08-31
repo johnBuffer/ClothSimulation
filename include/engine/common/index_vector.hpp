@@ -120,14 +120,18 @@ inline uint64_t Vector<T>::push_back(const T& obj)
 }
 
 template<typename T>
-inline void Vector<T>::erase(uint64_t id)
+inline void Vector<T>::erase(ID id)
 {
+    // Retrieve the object position in data
+    const uint64_t data_index = ids[id];
+    // Check if the object has been already erased
+    if (data_index >= data_size) { return; }
+    // Swap the object at the end
     --data_size;
-    const uint64_t current_data_id = ids[id];
-    const uint64_t last_obj_id = metadata[data_size].rid;
-    std::swap(data[data_size], data[current_data_id]);
-    std::swap(metadata[data_size], metadata[current_data_id]);
-    std::swap(ids[last_obj_id], ids[id]);
+    const uint64_t last_id = metadata[data_size].rid;
+    std::swap(data[data_size], data[data_index]);
+    std::swap(metadata[data_size], metadata[data_index]);
+    std::swap(ids[last_id], ids[id]);
     // Invalidate the operation ID
     metadata[data_size].op_id = ++op_count;
 }

@@ -122,7 +122,7 @@ struct PhysicSolver
 
     void applyGravity()
     {
-        const sf::Vector2f gravity(0.0f, 2000.0f);
+        const sf::Vector2f gravity(0.0f, 1500.0f);
         for (Particle& p : objects) {
             p.forces += gravity * p.mass;
         }
