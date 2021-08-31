@@ -1,4 +1,4 @@
-# ClothSimulation
+# Cloth Simulation
 
 Very simple cloth simulation using Verlet position based physics.
 
