@@ -26,9 +26,9 @@ void applyForceOnCloth(sf::Vector2f position, float radius, sf::Vector2f force, 
 
 int main()
 {
-	const int32_t window_width = 1920;
-	const int32_t window_height = 1080;
-	WindowContextHandler app("Cloth", {window_width, window_height}, sf::Style::Default);
+    const int32_t window_width = 1920;
+    const int32_t window_height = 1080;
+    WindowContextHandler app("Cloth", {window_width, window_height}, sf::Style::Default);
 
     PhysicSolver solver;
     Renderer renderer(solver);
@@ -107,7 +107,7 @@ int main()
         render_context.clear();
         renderer.render(render_context);
         render_context.display();
-	}
+    }
 
-	return 0;
+    return 0;
 }

@@ -93,19 +93,19 @@ struct LinkConstraint
 
 struct PhysicSolver
 {
-	CIVector<Particle>       objects;
+    CIVector<Particle>       objects;
     CIVector<LinkConstraint> constraints;
 
-	// Simulator iterations count
-	uint32_t solver_iterations;
-	uint32_t sub_steps;
+    // Simulator iterations count
+    uint32_t solver_iterations;
+    uint32_t sub_steps;
 
-	PhysicSolver()
-		: solver_iterations(1)
-		, sub_steps(16)
-	{}
+    PhysicSolver()
+        : solver_iterations(1)
+        , sub_steps(16)
+    {}
 
-	void update(float dt)
+    void update(float dt)
     {
         const float sub_step_dt = dt / to<float>(sub_steps);
         removeLinks();
