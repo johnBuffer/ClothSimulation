@@ -16,7 +16,7 @@ struct Wind
 
     void update(float dt)
     {
-        rect.left += 5.0f * force.x * dt;
+        rect.left += 1.0f * force.x * dt;
         //rect.top += force.y * dt;
     }
 };
@@ -25,7 +25,12 @@ struct Wind
 struct WindManager
 {
     std::vector<Wind> winds;
-    sf::Vector2f window_size;
+    float world_width = 0.0f;
+
+    explicit
+    WindManager(float width)
+        : world_width(width)
+    {}
 
     void update(PhysicSolver& solver, float dt)
     {
@@ -37,7 +42,7 @@ struct WindManager
                 }
             }
 
-            if (w.rect.left > window_size.x) {
+            if (w.rect.left > world_width) {
                 w.rect.left = -w.rect.width;
             }
         }

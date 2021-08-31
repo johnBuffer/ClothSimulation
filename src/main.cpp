@@ -33,9 +33,9 @@ int main()
     PhysicSolver solver;
     Renderer renderer(solver);
 
-    const uint32_t cloth_width = 150;
-    const uint32_t cloth_height = 100;
-    const float links_length = 10.0f;
+    const uint32_t cloth_width = 75;
+    const uint32_t cloth_height = 50;
+    const float links_length = 20.0f;
     const float start_x = (window_width - (cloth_width - 1) * links_length) * 0.5f;
     // Initialize the cloth
     for (uint32_t y(0); y < cloth_height; ++y) {
@@ -75,6 +75,20 @@ int main()
     app.getEventManager().addMouseReleasedCallback(sf::Mouse::Middle, [&](sfev::CstEv) {
         erasing = false;
     });
+
+    // Add 2 wind waves
+    WindManager wind(to<float>(window_width));
+    wind.winds.emplace_back(
+        sf::Vector2f(100.0f, window_height),
+        sf::Vector2f(0.0f, 0.0f),
+        sf::Vector2f(1000.0f, 0.0f)
+    );
+    wind.winds.emplace_back(
+        sf::Vector2f(20.0f, window_height),
+        sf::Vector2f(0.0f, 0.0f),
+        sf::Vector2f(3000.0f, 0.0f)
+    );
+
     // Main loop
     const float dt = 1.0f / 60.0f;
     while (app.run()) {
@@ -91,12 +105,13 @@ int main()
         if (erasing) {
             // Delete all nodes that are in the range of the mouse
             for (Particle& p : solver.objects) {
-                if (isInRadius(p, mouse_position, 20.0f)) {
+                if (isInRadius(p, mouse_position, 10.0f)) {
                     solver.objects.erase(p.id);
                 }
             }
         }
         // Update physics
+        wind.update(solver, dt);
         solver.update(dt);
         // Render the scene
         RenderContext& render_context = app.getRenderContext();
