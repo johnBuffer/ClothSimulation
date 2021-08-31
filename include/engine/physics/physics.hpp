@@ -7,7 +7,6 @@ struct PhysicSolver
 {
     CIVector<Particle>       objects;
     CIVector<LinkConstraint> constraints;
-
     // Simulator iterations count
     uint32_t solver_iterations;
     uint32_t sub_steps;
@@ -20,14 +19,12 @@ struct PhysicSolver
     void update(float dt)
     {
         const float sub_step_dt = dt / to<float>(sub_steps);
-        removeLinks();
+        removeBrokenLinks();
         for (uint32_t i(sub_steps); i--;) {
             applyGravity();
             applyAirFriction();
             updatePositions(sub_step_dt);
-            for (uint32_t k(solver_iterations); k--;) {
-                solveConstraints();
-            }
+            solveConstraints();
             updateDerivatives(sub_step_dt);
         }
     }
@@ -64,12 +61,14 @@ struct PhysicSolver
 
     void solveConstraints()
     {
-        for (LinkConstraint& l : constraints) {
-            l.solve();
+        for (uint32_t i(solver_iterations); i--;) {
+            for (LinkConstraint &l: constraints) {
+                l.solve();
+            }
         }
     }
 
-    void removeLinks()
+    void removeBrokenLinks()
     {
         for (LinkConstraint& l : constraints) {
             if (!l.isValid()) {
