@@ -1,6 +1,3 @@
-#include <iostream>
-#include <SFML/Graphics.hpp>
-#include <list>
 #include "engine/window_context_handler.hpp"
 #include "engine/physics/physics.hpp"
 #include "renderer.hpp"
