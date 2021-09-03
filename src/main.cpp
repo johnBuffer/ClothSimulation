@@ -38,7 +38,7 @@ int main()
     for (uint32_t y(0); y < cloth_height; ++y) {
         const float max_elongation = 1.2f * (2.0f - y / float(cloth_height));
         for (uint32_t x(0); x < cloth_width; ++x) {
-            const uint32_t id = solver.addParticle(
+            const civ::ID id = solver.addParticle(
                 sf::Vector2f(start_x + x * links_length, y * links_length)
             );
             // Add left link if there is a particle on the left

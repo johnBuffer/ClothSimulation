@@ -1,4 +1,5 @@
 #pragma once
+#include <cstdint>
 #include "particle.hpp"
 #include "../common/math.hpp"
 
@@ -11,7 +12,7 @@ struct LinkConstraint
     float strength = 1.0f;
     float max_elongation_ratio = 1.5f;
     bool broken = false;
-    uint32_t id = 0;
+    civ::ID id = 0;
 
     LinkConstraint() = default;
 

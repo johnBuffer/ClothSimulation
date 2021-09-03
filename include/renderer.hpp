@@ -16,7 +16,7 @@ struct Renderer
 
     void updateVA()
     {
-        const uint32_t links_count = solver.constraints.size();
+        const uint32_t links_count = to<uint32_t>(solver.constraints.size());
         va.resize(2 * links_count);
         for (uint32_t i(0); i<links_count; ++i) {
             LinkConstraint& current_link = solver.constraints.data[i];

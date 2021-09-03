@@ -1,5 +1,8 @@
 #pragma once
+#include <functional>
+#include <SFML/System/Vector2.hpp>
 #include "engine/common/index_vector.hpp"
+#include "engine/common/utils.hpp"
 #include "constraints.hpp"
 
 
@@ -77,7 +80,7 @@ struct PhysicSolver
         }
     }
 
-    uint32_t addParticle(sf::Vector2f position)
+    civ::ID addParticle(sf::Vector2f position)
     {
         const civ::ID particle_id = objects.emplace_back(position);
         objects[particle_id].id = particle_id;

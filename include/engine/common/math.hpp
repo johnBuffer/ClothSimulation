@@ -1,8 +1,10 @@
 #pragma once
+#include <cmath>
+
 
 struct Math
 {
-    static constexpr float PI = 3.141592653;
+    static constexpr float PI = 3.141592653f;
 
     template<typename T>
     static T sign(T v)
@@ -45,7 +47,7 @@ struct MathVec2
     }
     
     template<template<typename> class Vec2Type, typename T>
-    static T dot(Vec2Type<T> v1, sf::Vector2<T> v2)
+    static T dot(Vec2Type<T> v1, Vec2Type<T> v2)
     {
         return v1.x * v2.x + v1.y * v2.y;
     }

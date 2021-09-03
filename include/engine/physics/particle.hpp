@@ -1,10 +1,11 @@
 #pragma once
 #include <SFML/System/Vector2.hpp>
+#include "../common/index_vector.hpp"
 
 
 struct Particle
 {
-    uint32_t id = 0;
+    civ::ID id = 0;
     float mass = 1.0f;
     sf::Vector2f position;
     sf::Vector2f position_old;
