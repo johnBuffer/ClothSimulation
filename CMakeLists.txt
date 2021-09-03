@@ -29,6 +29,12 @@ if (UNIX)
 endif (UNIX)
 
 if(MSVC)
+  target_compile_options(${PROJECT_NAME} PRIVATE /W4 /WX)
+else()
+  target_compile_options(${PROJECT_NAME} PRIVATE -Wall -Wextra -Wpedantic -Werror)
+endif()
+
+if(MSVC)
    foreach(lib ${SFML_LIBS})
       get_target_property(lib_path ${lib} LOCATION)
       file(COPY ${lib_path} DESTINATION ${CMAKE_CURRENT_BINARY_DIR})

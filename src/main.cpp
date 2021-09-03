@@ -25,7 +25,7 @@ int main()
 {
     const uint32_t window_width = 1920;
     const uint32_t window_height = 1080;
-    WindowContextHandler app("Cloth", {window_width, window_height}, sf::Style::Default);
+    WindowContextHandler app("Cloth", sf::Vector2u(window_width, window_height), sf::Style::Default);
 
     PhysicSolver solver;
     Renderer renderer(solver);

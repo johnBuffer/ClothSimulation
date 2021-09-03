@@ -24,7 +24,6 @@ struct ViewportHandler
         void updateState()
         {
             const float z = zoom;
-            const float inv_z = 1.0f / z;
             transform = sf::Transform::Identity;
             transform.translate(center);
             transform.scale(z, z);
