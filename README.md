@@ -12,3 +12,7 @@ Very simple cloth simulation using Verlet position based physics.
 |**Wheel**|Zoom|
 |**Right click**|Move cloth|
 |**Middle click**|Cut cloth|
+
+# Compilation
+
+Instructions can be found [here](https://github.com/johnBuffer/AntSimulator#compilation), steps are similar.
