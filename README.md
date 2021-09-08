@@ -15,4 +15,12 @@ Very simple cloth simulation using Verlet position based physics.
 
 # Compilation
 
-Instructions can be found [here](https://github.com/johnBuffer/AntSimulator#compilation), steps are similar.
+To compile just navigate to the main directory of 'ClothSimulation'
+e.g. user@debian:~/ClothSimulation$
+Here open a terminal and first make sure you have cmake, build-essential and gdb installed, if not you can just run;
+
+`sudo apt-get install cmake build-essential gdb`
+
+Now in the main directory run `cmake .`
+Next run `make`
+Then you can run the script with `sudo ./Cloth`
