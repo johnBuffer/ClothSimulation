@@ -36,6 +36,8 @@ int main()
     const float start_x = (window_width - (cloth_width - 1) * links_length) * 0.5f;
     // Initialize the cloth
     for (uint32_t y(0); y < cloth_height; ++y) {
+        // This is just an arbitrary formula to make the top links stronger since
+        // they are under bigger stress
         const float max_elongation = 1.2f * (2.0f - y / float(cloth_height));
         for (uint32_t x(0); x < cloth_width; ++x) {
             const civ::ID id = solver.addParticle(
