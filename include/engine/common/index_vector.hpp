@@ -63,6 +63,7 @@ struct Vector
     ID emplace_back(Args&&... args);
     ID push_back(const T& obj);
     void erase(uint64_t id);
+    void remove_if(const std::function<bool(const T&)>& f);
     // Data access by ID
     T& operator[](ID id);
     const T& operator[](ID id) const;
@@ -72,7 +73,7 @@ struct Vector
     T& getDataAt(uint64_t i);
     // Check if the data behind the pointer is the same
     bool isValid(ID id, ID validity) const;
-    // Returns the ith object and id
+    // Returns the ith object and global_id
     ObjectSlot<T> getSlotAt(uint64_t i);
     ObjectSlotConst<T> getSlotAt(uint64_t i) const;
     // Iterators
@@ -263,6 +264,20 @@ inline bool Vector<T>::isValid(ID id, uint64_t validity) const
     return validity == metadata[getDataID(id)].op_id;
 }
 
+template<typename T>
+void Vector<T>::remove_if(const std::function<bool(const T&)>& f)
+{
+    uint64_t data_index = 0;
+    for (auto it = data.begin(); it != this->end(); ++it) {
+        if (f(*it)) {
+            this->erase(metadata[data_index].rid);
+            --it;
+        } else {
+            ++data_index;
+        }
+    }
+}
+
 
 template<typename T>
 struct Ref
@@ -292,6 +307,11 @@ struct Ref
     const T& operator*() const
     {
         return (*array)[id];
+    }
+
+    civ::ID getID() const
+    {
+        return id;
     }
 
     explicit

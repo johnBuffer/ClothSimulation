@@ -73,11 +73,7 @@ struct PhysicSolver
 
     void removeBrokenLinks()
     {
-        for (LinkConstraint& l : constraints) {
-            if (!l.isValid()) {
-                constraints.erase(l.id);
-            }
-        }
+        constraints.remove_if([](const LinkConstraint& c) {return !c.isValid();});
     }
 
     civ::ID addParticle(sf::Vector2f position)

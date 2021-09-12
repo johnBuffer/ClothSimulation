@@ -101,11 +101,7 @@ int main()
 
         if (erasing) {
             // Delete all nodes that are in the range of the mouse
-            for (Particle& p : solver.objects) {
-                if (isInRadius(p, mouse_position, 10.0f)) {
-                    solver.objects.erase(p.id);
-                }
-            }
+            solver.objects.remove_if([&](const Particle& p) {return isInRadius(p, mouse_position, 10.0f);});
         }
         // Update physics
         wind.update(solver, dt);
