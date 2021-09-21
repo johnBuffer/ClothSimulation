@@ -2,23 +2,7 @@
 #include "engine/physics/physics.hpp"
 #include "renderer.hpp"
 #include "wind.hpp"
-
-
-bool isInRadius(const Particle& p, sf::Vector2f center, float radius)
-{
-    const sf::Vector2f v = center - p.position;
-    return v.x * v.x + v.y * v.y < radius * radius;
-}
-
-
-void applyForceOnCloth(sf::Vector2f position, float radius, sf::Vector2f force, PhysicSolver& solver)
-{
-    for (Particle& p : solver.objects) {
-        if (isInRadius(p, position, radius)) {
-            p.forces += force;
-        }
-    }
-}
+#include "utils.hpp"
 
 
 int main()
@@ -98,12 +82,12 @@ int main()
             // Apply a force on the particles in the direction of the mouse's movement
             const sf::Vector2f mouse_speed = mouse_position - last_mouse_position;
             last_mouse_position = mouse_position;
-            applyForceOnCloth(mouse_position, 100.0f, mouse_speed * 8000.0f, solver);
+            usr::Utils::applyForceOnCloth(mouse_position, 100.0f, mouse_speed * 8000.0f, solver);
         }
 
         if (erasing) {
             // Delete all nodes that are in the range of the mouse
-            solver.objects.remove_if([&](const Particle& p) {return isInRadius(p, mouse_position, 10.0f);});
+            solver.objects.remove_if([&](const Particle& p) {return usr::Utils::isInRadius(p, mouse_position, 10.0f);});
         }
         // Update physics
         wind.update(solver, dt);
