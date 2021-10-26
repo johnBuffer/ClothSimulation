@@ -5,20 +5,20 @@
 
 struct Particle
 {
-    civ::ID id = 0;
-    float mass = 1.0f;
+    civ::ID      id            = 0;
+    float        mass          = 1.0f;
+    bool         moving        = true;
     sf::Vector2f position;
     sf::Vector2f position_old;
     sf::Vector2f velocity;
     sf::Vector2f forces;
-    bool moving = true;
 
     Particle() = default;
 
     explicit
     Particle(sf::Vector2f pos)
-    : position(pos)
-    , position_old(pos)
+        : position(pos)
+        , position_old(pos)
     {}
 
     void update(float dt)
