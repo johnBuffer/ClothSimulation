@@ -7,25 +7,24 @@
 
 int main()
 {
-    const uint32_t window_width = 1920;
+    const uint32_t window_width  = 1920;
     const uint32_t window_height = 1080;
     WindowContextHandler app("Cloth", sf::Vector2u(window_width, window_height), sf::Style::Default);
-
+    // Initialize solver and renderer
     PhysicSolver solver;
     Renderer renderer(solver);
-
-    const uint32_t cloth_width = 75;
-    const uint32_t cloth_height = 50;
-    const float links_length = 20.0f;
-    const float start_x = (window_width - (cloth_width - 1) * links_length) * 0.5f;
     // Initialize the cloth
+    const uint32_t cloth_width  = 75;
+    const uint32_t cloth_height = 50;
+    const float    links_length = 20.0f;
+    const float    start_x      = (window_width - (cloth_width - 1) * links_length) * 0.5f;
     for (uint32_t y(0); y < cloth_height; ++y) {
         // This is just an arbitrary formula to make the top links stronger since
         // they are under bigger stress
-        const float max_elongation = 1.2f * (2.0f - y / float(cloth_height));
+        const float max_elongation = 1.2f * (2.0f - to<float>(y) / float(cloth_height));
         for (uint32_t x(0); x < cloth_width; ++x) {
             const civ::ID id = solver.addParticle(
-                sf::Vector2f(start_x + x * links_length, y * links_length)
+                sf::Vector2f(start_x + to<float>(x) * links_length, to<float>(y) * links_length)
             );
             // Add left link if there is a particle on the left
             if (x > 0) {
